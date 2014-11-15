@@ -6,6 +6,7 @@ var child = new(forever.Monitor)('<%= @app_dir %>/current/<%= @entry_point %>', 
 	options: [<% @app_options.each do | option | %>'<%= option %>', <% end %>],
         pidFile: '<%= @app_dir %>/pids/app.pid',
         watch: true,
+        cwd: '<%= @app_dir %>/current',
         watchDirectory: '<%= @app_dir %>/current',      // Top-level directory to watch from.
         watchIgnoreDotFiles: true, // whether to ignore dot files
         watchIgnorePatterns: [<% @ignore_patterns.each do | pattern | %>'<%= pattern %>', <% end %>], // array of glob patterns to ignore, merged with contents of watchDirectory + '/.foreverignore' file
