@@ -26,7 +26,13 @@ node['nodestack']['apps'].each do |app| # each app loop
 
     sv_dir = service_config['runit']['sv_dir'] ? service_config['runit']['sv_dir'] : '/etc/sv'
     cookbook = service_config['runit']['cookbook'] ? service_config['runit']['cookbook'] : 'nodestack'
-    env = service_config['env'] ? service_config['env'] : ( app_config['env'] ? app_config['env'] : {} )
+    env = if service_config['env']
+            service_config['env']
+          elsif app_config['env']
+            app_config['env']
+          else
+            {}
+          end
     options = service_config['options'] || {
       cookbook_name: cookbook,
       app_dir: app_config['app_dir'],
