@@ -151,6 +151,8 @@ node['nodestack']['apps'].each do |app| # each app loop
     include_recipe 'nodestack::forever'
   when 'forever'
     include_recipe 'nodestack::forever'
+  when 'runit'
+    include_recipe 'nodestack::runit'
   else
     Chef::Log.warn("#{app_config['deployment']['strategy']} isn't a deployment strategy this cookbook is familiar with. This is not necessarily an error.")
   end
