@@ -33,11 +33,14 @@ node['nodestack']['apps'].each do |app| # each app loop
           else
             {}
           end
+    owner = service_config['runit']['owner'] || app_config['app_user'] || app_name
+    group = service_config['runit']['group'] || app_config['app_user'] || app_name
     options = service_config['options'] || {
       cookbook_name: cookbook,
       app_dir: app_config['app_dir'],
       env_dir: env.empty? ? nil : "#{sv_dir}/#{app_name}/env",
-      app_user: app_config['app_user'],
+      app_user: owner,
+      app_group: group,
       binary_path: node['nodestack']['binary_path'],
       entry: app_config['entry_point'] || 'server.js'
     }
@@ -55,8 +58,8 @@ node['nodestack']['apps'].each do |app| # each app loop
       log_size service_config['runit']['log_size'] || 100000000
       log_num service_config['runit']['log_num'] || 10
       log_min service_config['runit']['log_min'] || 2
-      owner service_config['runit']['owner'] || app_config['app_user']
-      group service_config['runit']['group'] || app_config['app_user']
+      owner service_config['runit']['owner'] || app_config['app_user'] || app_name
+      group service_config['runit']['group'] || app_config['app_user'] || app_name
       restart_on_update service_config['runit']['restart_on_update'] || false
     end
   end
