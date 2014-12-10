@@ -52,6 +52,9 @@ node['nodestack']['apps'].each do |app| # each app loop
       env env
       log service_config['runit']['log'] || true
       default_logger service_config['runit']['default_logger'] || true
+      log_size service_config['runit']['log_size'] || 100000000
+      log_num service_config['runit']['log_num'] || 10
+      log_min service_config['runit']['log_min'] || 2
       owner service_config['runit']['owner'] || app_config['app_user']
       group service_config['runit']['group'] || app_config['app_user']
       restart_on_update service_config['runit']['restart_on_update'] || false
