@@ -9,7 +9,6 @@
 include_recipe 'runit::default'
 
 node['nodestack']['apps'].each do |app| # each app loop
-
   app_name = app[0]
   app_config = node['nodestack']['apps'][app_name]
   unless app_config['services'] || !app_config['services'].empty?
@@ -55,7 +54,7 @@ node['nodestack']['apps'].each do |app| # each app loop
       env env
       log service_config['runit']['log'] || true
       default_logger service_config['runit']['default_logger'] || true
-      log_size service_config['runit']['log_size'] || 100000000
+      log_size service_config['runit']['log_size'] || 100_000_000
       log_num service_config['runit']['log_num'] || 10
       log_min service_config['runit']['log_min'] || 2
       owner service_config['runit']['owner'] || app_config['app_user'] || app_name
@@ -63,5 +62,4 @@ node['nodestack']['apps'].each do |app| # each app loop
       restart_on_update service_config['runit']['restart_on_update'] || false
     end
   end
-
 end
