@@ -41,7 +41,8 @@ node['nodestack']['apps'].each do |app| # each app loop
       app_user: owner,
       app_group: group,
       binary_path: node['nodestack']['binary_path'],
-      entry: app_config['entry_point'] || 'server.js'
+      entry: app_config['entry_point'] || 'server.js',
+      flags: service_config['flags']
     }
 
     runit_service service_name do

@@ -7,4 +7,4 @@
 #
 cd <%= @options[:app_dir] %>/current
 exec 2>&1
-exec chpst <% unless @options[:env_dir].nil? %> -e <%= @options[:env_dir] %> <% end %> -u <%= "#{@options[:app_user]}:#{@options[:app_group]}" %> <%= @options[:binary_path] %> <%= @options[:entry] %>
+exec chpst <% unless @options[:env_dir].nil? %> -e <%= @options[:env_dir] %> <% end %> -u <%= "#{@options[:app_user]}:#{@options[:app_group]}" %> <%= @options[:binary_path] %> <%= @options[:entry] %> <% unless @options[:flags].nil? %> <% @options[:flags].each do |flag,value| %> <%= "#{flag} #{value}" %> <% end %> <% end %>
